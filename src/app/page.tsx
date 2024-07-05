@@ -1,28 +1,20 @@
-import { Suspense } from 'react'
+import Link from 'next/link'
 
-import SignIn from '~/components/forms/signin'
-import { DataTable } from '~/components/ui/data-table'
-
-import { Separator } from '~/components/ui/separator'
-import { columns } from '~/components/columns'
-import { get_signed_in_ninjas } from '~/server/queries'
-
-export default function SignInSheetPage() {
+export default function MainPage() {
     return (
-        <main className="grid grid-cols-1 pt-20">
-            <div className="container mx-auto flex max-w-3xl flex-col gap-5">
-                <SignIn />
-                <Separator />
-                <Suspense fallback={<div>Loading...</div>}>
-                    <GetSignedInNinjas />
-                </Suspense>
-            </div>
+        <main className="flex h-screen w-screen flex-col items-center justify-center gap-5">
+            <Link
+                href="/northridge"
+                className="flex flex-row items-center justify-center rounded-md bg-primary p-5 text-primary-foreground"
+            >
+                Northridge
+            </Link>
+            <Link
+                href="/silverlake"
+                className="flex flex-row items-center justify-center rounded-md bg-primary p-5 text-primary-foreground"
+            >
+                Silverlake
+            </Link>
         </main>
     )
-}
-
-async function GetSignedInNinjas() {
-    const ninjas = await get_signed_in_ninjas()
-
-    return <DataTable columns={columns} data={ninjas} />
 }

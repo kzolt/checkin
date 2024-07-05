@@ -9,6 +9,7 @@ import { db } from '~/server/db'
 import { signins } from '~/server/db/schema'
 
 const signInSchema = z.object({
+    center: z.literal('northridge').or(z.literal('silverlake')),
     ninja_name: z.string().refine((value) => value !== '', 'Please enter a name')
 })
 
@@ -25,6 +26,7 @@ export async function sign_in_action(
     form_data: FormData
 ) {
     const validateFields = signInSchema.safeParse({
+        center: form_data.get('center'),
         ninja_name: form_data.get('ninja_name')
     })
 
@@ -37,7 +39,8 @@ export async function sign_in_action(
 
     await db.insert(signins).values({
         id: createId(),
-        ninja_name: validateFields.data.ninja_name
+        ninja_name: validateFields.data.ninja_name,
+        center: validateFields.data.center
     })
 
     revalidateTag('ninjas')

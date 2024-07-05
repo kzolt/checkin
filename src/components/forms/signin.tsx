@@ -10,7 +10,7 @@ import { toast } from 'sonner'
 
 import { sign_in_action } from '~/server/actions'
 
-export default function SignIn() {
+export default function SignIn(props: { center: 'northridge' | 'silverlake' }) {
     const [inputText, setInputText] = useState('')
     const [state, formAction] = useFormState(sign_in_action, {
         success: false,
@@ -32,6 +32,7 @@ export default function SignIn() {
         <form className="flex w-full flex-col gap-5" action={formAction}>
             <FormItem>
                 <Label>Ninja&apos;s Name</Label>
+                <Input name="center" value={props.center} type="hidden" />
                 <Input
                     name="ninja_name"
                     value={inputText}

@@ -1,13 +1,13 @@
 import { unstable_cache } from 'next/cache'
-import { eq } from 'drizzle-orm'
+import { eq, and } from 'drizzle-orm'
 
 import { db } from '~/server/db'
 import { signins } from '~/server/db/schema'
 
 export const get_signed_in_ninjas = unstable_cache(
-    async () => {
+    async (center: 'northridge' | 'silverlake') => {
         const ninjas = await db.query.signins.findMany({
-            where: eq(signins.checked_out, false)
+            where: and(eq(signins.checked_out, false), eq(signins.center, center))
         })
 
         const formattedNinjas = ninjas.map((ninja) => ({
