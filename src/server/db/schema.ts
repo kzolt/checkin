@@ -2,7 +2,7 @@
 // https://orm.drizzle.team/docs/sql-schema-declaration
 
 import { sql } from 'drizzle-orm'
-import { pgTableCreator, timestamp, varchar, text } from 'drizzle-orm/pg-core'
+import { pgTableCreator, timestamp, varchar, text, boolean } from 'drizzle-orm/pg-core'
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -19,5 +19,6 @@ export const signins = createTable('signin', {
     time_in: timestamp('time_in', { withTimezone: true })
         .default(sql`CURRENT_TIMESTAMP`)
         .notNull(),
-    time_out: timestamp('time_out', { withTimezone: true })
+    time_out: timestamp('time_out', { withTimezone: true }),
+    checked_out: boolean('checked_out').default(false)
 })

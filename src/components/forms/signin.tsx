@@ -13,7 +13,7 @@ import { sign_in_action } from '~/server/actions'
 export default function SignIn() {
     const [inputText, setInputText] = useState('')
     const [state, formAction] = useFormState(sign_in_action, {
-        success: true,
+        success: false,
         errors: undefined
     })
 

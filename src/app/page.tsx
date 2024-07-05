@@ -1,30 +1,11 @@
 import { Suspense } from 'react'
-import { unstable_cache } from 'next/cache'
 
 import SignIn from '~/components/forms/signin'
 import { DataTable } from '~/components/ui/data-table'
 
-import { db } from '~/server/db'
-import { signins } from '~/server/db/schema'
 import { Separator } from '~/components/ui/separator'
-
-const get_ninjas = unstable_cache(
-    async () => {
-        const ninjas = await db.query.signins.findMany()
-
-        const formattedNinjas = ninjas.map((ninja) => ({
-            ninja_name: ninja.ninja_name,
-            time_in: ninja.time_in.toLocaleTimeString(['en-US'], {
-                hour: '2-digit',
-                minute: '2-digit'
-            })
-        }))
-
-        return formattedNinjas
-    },
-    ['ninjas'],
-    { tags: ['ninjas'] }
-)
+import { columns } from '~/components/columns'
+import { get_signed_in_ninjas } from '~/server/queries'
 
 export default function SignInSheetPage() {
     return (
@@ -41,21 +22,7 @@ export default function SignInSheetPage() {
 }
 
 async function GetSignedInNinjas() {
-    const ninjas = await get_ninjas()
+    const ninjas = await get_signed_in_ninjas()
 
-    return (
-        <DataTable
-            columns={[
-                {
-                    accessorKey: 'ninja_name',
-                    header: 'Ninja Name'
-                },
-                {
-                    accessorKey: 'time_in',
-                    header: 'Time Signed In'
-                }
-            ]}
-            data={ninjas}
-        />
-    )
+    return <DataTable columns={columns} data={ninjas} />
 }
