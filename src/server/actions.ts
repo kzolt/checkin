@@ -4,6 +4,7 @@ import { createId } from '@paralleldrive/cuid2'
 import { db } from '~/server/db'
 import { signins } from '~/server/db/schema'
 import { z } from 'zod'
+import { revalidateTag } from 'next/cache'
 
 export type SignInAction = {
     success: boolean
@@ -26,12 +27,13 @@ export async function sign_in_action(prev_state: SignInAction, form_data: FormDa
         }
     }
 
-    // await db.insert(signins).values({
-    //     id: createId(),
-    //     ninja_name: ninja_name
-    // })
+    await db.insert(signins).values({
+        id: createId(),
+        ninja_name: validateFields.data.ninja_name
+    })
 
-    console.log(validateFields.data.ninja_name)
+    revalidateTag('ninjas')
+
     return {
         success: true
     }

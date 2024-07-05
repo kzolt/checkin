@@ -1,7 +1,7 @@
 'use client'
 
 import { useFormStatus, useFormState } from 'react-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { FormItem } from '~/components/ui/form'
 import { Label } from '~/components/ui/label'
 import { Input } from '~/components/ui/input'
@@ -11,6 +11,7 @@ import { toast } from 'sonner'
 import { sign_in_action } from '~/server/actions'
 
 export default function SignIn() {
+    const [inputText, setInputText] = useState('')
     const [state, formAction] = useFormState(sign_in_action, {
         success: true,
         errors: undefined
@@ -21,6 +22,7 @@ export default function SignIn() {
     useEffect(() => {
         if (state.success) {
             toast.success('Ninja Signed In')
+            setInputText('')
         } else if (!state.success && state.errors) {
             toast.error(state.errors.ninja_name)
         }
@@ -30,7 +32,12 @@ export default function SignIn() {
         <form className="flex w-full flex-col gap-5" action={formAction}>
             <FormItem>
                 <Label>Ninja&apos;s Name</Label>
-                <Input name="ninja_name" placeholder="Enter your ninja's name" />
+                <Input
+                    name="ninja_name"
+                    value={inputText}
+                    onChange={(e) => setInputText(e.target.value)}
+                    placeholder="Enter your ninja's name"
+                />
             </FormItem>
             <Button type="submit" disabled={pending}>
                 Sign In
