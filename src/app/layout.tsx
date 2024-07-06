@@ -1,7 +1,11 @@
 import '~/styles/globals.css'
 
 import { GeistSans } from 'geist/font/sans'
+import NextTopLoader from 'nextjs-toploader'
+
 import { ThemeProvider } from '~/components/ui/theme-provider'
+import { ModeToggle } from '~/components/ui/theme-switcher'
+
 import { Toaster } from '~/components/ui/sonner'
 
 export const metadata = {
@@ -20,7 +24,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     enableSystem
                     disableTransitionOnChange
                 >
+                    <NextTopLoader />
                     {children}
+                    <div className="absolute right-0 top-0 m-10">
+                        <ModeToggle />
+                    </div>
                     <Toaster position="bottom-right" richColors />
                 </ThemeProvider>
             </body>
