@@ -5,7 +5,7 @@ import { get_ninjas } from '~/server/queries'
 
 export default function LogPage() {
     return (
-        <div className="container mx-auto flex max-w-3xl flex-col gap-5 pt-20">
+        <div className="container mx-auto flex max-w-6xl flex-col gap-5 pt-20">
             <Suspense fallback={<div>Loading...</div>}>
                 <GetNinjas />
             </Suspense>
@@ -24,8 +24,12 @@ async function GetNinjas() {
                     header: 'Ninja Name'
                 },
                 {
-                    accessorKey: 'guardian_signature',
-                    header: 'Guardian Signature'
+                    accessorKey: 'dropoff_guardian',
+                    header: 'Dropoff Guardian'
+                },
+                {
+                    accessorKey: 'pickup_guardian',
+                    header: 'Pickup Guardian'
                 },
                 {
                     accessorKey: 'date',

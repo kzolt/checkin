@@ -16,7 +16,10 @@ export const get_signed_in_ninjas = unstable_cache(
             time_in: ninja.time_in.toLocaleTimeString(['en-US'], {
                 hour: '2-digit',
                 minute: '2-digit'
-            })
+            }),
+            phone_number: ninja.phone_number,
+            dropoff_guardian: ninja.dropoff_guardian,
+            pickup_guardian: ninja.pickup_guardian
         }))
 
         return formattedNinjas
@@ -44,7 +47,8 @@ export const get_ninjas = unstable_cache(
                 hour: '2-digit',
                 minute: '2-digit'
             }),
-            guardian_signature: ninja.guardian_signature
+            dropoff_guardian: ninja.dropoff_guardian,
+            pickup_guardian: ninja.pickup_guardian
         }))
 
         return formattedNinjas

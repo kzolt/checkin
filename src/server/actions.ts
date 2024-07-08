@@ -10,7 +10,14 @@ import { signins } from '~/server/db/schema'
 
 const signInSchema = z.object({
     center: z.literal('northridge').or(z.literal('silverlake')),
-    ninja_name: z.string().refine((value) => value !== '', 'Please enter a name')
+    ninja_name: z.string().refine((value) => value !== '', 'Please enter a name'),
+    phone_number: z
+        .string()
+        .refine((value) => value !== '', 'Please enter a phone number'),
+    dropoff_guardian: z
+        .string()
+        .refine((value) => value !== '', "Please enter the guardian's name"),
+    pickup_guardian: z.string().optional()
 })
 
 const signOutSchema = z.object({
@@ -27,7 +34,10 @@ export async function sign_in_action(
 ) {
     const validateFields = signInSchema.safeParse({
         center: form_data.get('center'),
-        ninja_name: form_data.get('ninja_name')
+        ninja_name: form_data.get('ninja_name'),
+        phone_number: form_data.get('phone_number'),
+        dropoff_guardian: form_data.get('dropoff_guardian'),
+        pickup_guardian: form_data.get('pickup_guardian')
     })
 
     if (!validateFields.success) {
@@ -40,7 +50,10 @@ export async function sign_in_action(
     await db.insert(signins).values({
         id: createId(),
         ninja_name: validateFields.data.ninja_name,
-        center: validateFields.data.center
+        center: validateFields.data.center,
+        phone_number: validateFields.data.phone_number,
+        dropoff_guardian: validateFields.data.dropoff_guardian,
+        pickup_guardian: validateFields.data.pickup_guardian
     })
 
     revalidateTag('ninjas')
@@ -73,7 +86,7 @@ export async function sign_out_action(
         .update(signins)
         .set({
             time_out: new Date(),
-            guardian_signature: validateFields.data.guardian_signature,
+            actual_pickup_guardian: validateFields.data.guardian_signature,
             checked_out: true
         })
         .where(eq(signins.id, validateFields.data.id))

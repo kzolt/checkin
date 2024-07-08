@@ -23,12 +23,17 @@ export const centers = pgEnum('centers', ['northridge', 'silverlake'])
 
 export const signins = createTable('signin', {
     id: varchar('id', { length: 256 }).primaryKey(),
+
     ninja_name: text('ninja_name').notNull(),
-    guardian_signature: text('guardian_signature'),
+    dropoff_guardian: text('dropoff_guardian').notNull(),
+    pickup_guardian: text('pickup_guardian'),
+    actual_pickup_guardian: text('actual_pickup_guardian'),
+    phone_number: text('phone_number'),
+    center: centers('center').notNull(),
+
     time_in: timestamp('time_in', { withTimezone: true })
         .default(sql`CURRENT_TIMESTAMP`)
         .notNull(),
     time_out: timestamp('time_out', { withTimezone: true }),
-    checked_out: boolean('checked_out').default(false),
-    center: centers('center').notNull()
+    checked_out: boolean('checked_out').default(false)
 })

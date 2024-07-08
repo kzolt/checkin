@@ -19,6 +19,18 @@ export const columns: ColumnDef<ColumnsType>[] = [
         header: 'Time Signed In'
     },
     {
+        accessorKey: 'phone_number',
+        header: 'Phone Number'
+    },
+    {
+        accessorKey: 'dropoff_guardian',
+        header: 'Dropoff Guardian'
+    },
+    {
+        accessorKey: 'pickup_guardian',
+        header: 'Pickup Guardian'
+    },
+    {
         header: 'Sign Out',
         cell: ({ row }) => <SignOutDialog row={row.original} />
     }
