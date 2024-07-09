@@ -9,6 +9,7 @@ import { toast } from 'sonner'
 
 import { sign_in_action } from '~/server/actions'
 import SubmitButton from '~/components/forms/submit-button'
+import { DialogClose } from '~/components/ui/dialog'
 
 export default function SignIn(props: { center: 'northridge' | 'silverlake' }) {
     const [state, formAction] = useFormState(sign_in_action, {
@@ -79,7 +80,9 @@ export default function SignIn(props: { center: 'northridge' | 'silverlake' }) {
                     placeholder="Pickup name"
                 />
             </FormItem>
-            <SubmitButton text="Sign In" />
+            <DialogClose>
+                <SubmitButton text="Sign In" />
+            </DialogClose>
         </form>
     )
 }
