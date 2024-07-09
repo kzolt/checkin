@@ -1,8 +1,10 @@
 'use client'
 
 import { useEffect } from 'react'
-import { useFormState, useFormStatus } from 'react-dom'
+import { useFormState } from 'react-dom'
 import { LogOutIcon } from 'lucide-react'
+
+import { toast } from 'sonner'
 
 import {
     Dialog,
@@ -17,17 +19,16 @@ import { Button } from '~/components/ui/button'
 import { Input } from '~/components/ui/input'
 import type { ColumnsType } from '~/components/columns'
 
-import { sign_out_action } from '~/server/actions'
 import { Separator } from '~/components/ui/separator'
-import { toast } from 'sonner'
+import SubmitButton from '~/components/forms/submit-button'
+
+import { sign_out_action } from '~/server/actions'
 
 export default function SignOutDialog(props: { row: ColumnsType }) {
     const [state, formAction] = useFormState(sign_out_action, {
         success: false,
         errors: undefined
     })
-
-    const { pending } = useFormStatus()
 
     useEffect(() => {
         if (state.success) {
@@ -56,9 +57,7 @@ export default function SignOutDialog(props: { row: ColumnsType }) {
                     <Input name="id" value={props.row.id} className="hidden" />
                     <Input name="guardian_signature" placeholder="Enter your name" />
                     <DialogClose>
-                        <Button type="submit" disabled={pending}>
-                            Sign Out
-                        </Button>
+                        <SubmitButton text="Sign Out" />
                     </DialogClose>
                 </form>
             </DialogContent>

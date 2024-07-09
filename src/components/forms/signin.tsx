@@ -1,22 +1,20 @@
 'use client'
 
-import { useFormStatus, useFormState } from 'react-dom'
+import { useFormState } from 'react-dom'
 import { useEffect, useRef } from 'react'
 import { FormItem } from '~/components/ui/form'
 import { Label } from '~/components/ui/label'
 import { Input } from '~/components/ui/input'
-import { Button } from '~/components/ui/button'
 import { toast } from 'sonner'
 
 import { sign_in_action } from '~/server/actions'
+import SubmitButton from '~/components/forms/submit-button'
 
 export default function SignIn(props: { center: 'northridge' | 'silverlake' }) {
     const [state, formAction] = useFormState(sign_in_action, {
         success: false,
         errors: undefined
     })
-
-    const { pending } = useFormStatus()
 
     const ninja_name_ref = useRef<HTMLInputElement>(null)
     const dropoff_phone_number_ref = useRef<HTMLInputElement>(null)
@@ -81,10 +79,7 @@ export default function SignIn(props: { center: 'northridge' | 'silverlake' }) {
                     placeholder="Pickup name"
                 />
             </FormItem>
-
-            <Button type="submit" disabled={pending}>
-                Sign In
-            </Button>
+            <SubmitButton text="Sign In" />
         </form>
     )
 }
