@@ -74,7 +74,7 @@ export default function SignIn(props: { center: 'northridge' | 'silverlake' }) {
                 />
             </FormItem>
             <FormItem>
-                <Label>Pickup Guardian</Label>
+                <Label>Pickup Guardian (if applicable)</Label>
                 <Input
                     ref={pickup_guardian_ref}
                     name="pickup_guardian"
