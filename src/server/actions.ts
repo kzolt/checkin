@@ -9,7 +9,7 @@ import { db } from '~/server/db'
 import { signins } from '~/server/db/schema'
 
 const signInSchema = z.object({
-    center: z.literal('northridge').or(z.literal('silverlake')),
+    center: z.literal('northridge').or(z.literal('silverlake').or(z.literal('altadena'))),
     ninja_name: z.string().refine((value) => value !== '', 'Please enter a name'),
     phone_number: z
         .string()

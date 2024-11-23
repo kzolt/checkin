@@ -19,7 +19,7 @@ import {
  */
 export const createTable = pgTableCreator((name) => `cnla_${name}`)
 
-export const centers = pgEnum('centers', ['northridge', 'silverlake'])
+export const centers = pgEnum('centers', ['northridge', 'silverlake', 'altadena'])
 
 export const signins = createTable('signin', {
     id: varchar('id', { length: 256 }).primaryKey(),
