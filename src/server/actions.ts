@@ -17,7 +17,8 @@ const signInSchema = z.object({
     dropoff_guardian: z
         .string()
         .refine((value) => value !== '', "Please enter the guardian's name"),
-    pickup_guardian: z.string().optional()
+    pickup_guardian: z.string().optional(),
+    type: z.literal('day_camp').or(z.literal('camp')).optional()
 })
 
 const signOutSchema = z.object({
@@ -37,7 +38,8 @@ export async function sign_in_action(
         ninja_name: form_data.get('ninja_name'),
         phone_number: form_data.get('phone_number'),
         dropoff_guardian: form_data.get('dropoff_guardian'),
-        pickup_guardian: form_data.get('pickup_guardian')
+        pickup_guardian: form_data.get('pickup_guardian'),
+        type: form_data.get('type')
     })
 
     if (!validateFields.success) {
@@ -53,7 +55,8 @@ export async function sign_in_action(
         center: validateFields.data.center,
         phone_number: validateFields.data.phone_number,
         dropoff_guardian: validateFields.data.dropoff_guardian,
-        pickup_guardian: validateFields.data.pickup_guardian
+        pickup_guardian: validateFields.data.pickup_guardian,
+        type: validateFields.data.type ? validateFields.data.type : 'camp'
     })
 
     revalidateTag('ninjas')

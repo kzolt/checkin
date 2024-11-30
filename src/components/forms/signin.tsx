@@ -11,7 +11,10 @@ import { sign_in_action } from '~/server/actions'
 import SubmitButton from '~/components/forms/submit-button'
 import { DialogClose } from '~/components/ui/dialog'
 
-export default function SignIn(props: { center: 'northridge' | 'silverlake' }) {
+export default function SignIn(props: {
+    center: 'northridge' | 'silverlake' | 'altadena'
+    type: 'camp' | 'day_camp'
+}) {
     const [state, formAction] = useFormState(sign_in_action, {
         success: false,
         errors: undefined
@@ -46,6 +49,9 @@ export default function SignIn(props: { center: 'northridge' | 'silverlake' }) {
         <form className="flex w-full flex-col gap-5" action={formAction}>
             <FormItem>
                 <Input name="center" value={props.center} type="hidden" />
+            </FormItem>
+            <FormItem className="hidden">
+                <Input name="type" value={props.type} type="hidden" />
             </FormItem>
             <FormItem>
                 <Label>Ninja&apos;s Name*</Label>

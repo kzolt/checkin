@@ -15,8 +15,8 @@ export const columns: ColumnDef<ColumnsType>[] = [
         header: 'Ninja Name'
     },
     {
-        accessorKey: 'time_in',
-        header: 'Time Signed In'
+        header: 'Time Signed In',
+        accessorKey: 'time_in'
     },
     {
         accessorKey: 'phone_number',

@@ -20,6 +20,7 @@ import {
 export const createTable = pgTableCreator((name) => `cnla_${name}`)
 
 export const centers = pgEnum('centers', ['northridge', 'silverlake', 'altadena'])
+export const types = pgEnum('types', ['camp', 'day_camp'])
 
 export const signins = createTable('signin', {
     id: varchar('id', { length: 256 }).primaryKey(),
@@ -30,6 +31,7 @@ export const signins = createTable('signin', {
     actual_pickup_guardian: text('actual_pickup_guardian'),
     phone_number: text('phone_number'),
     center: centers('center').notNull(),
+    type: types('type').default('camp'),
 
     time_in: timestamp('time_in', { withTimezone: true })
         .default(sql`CURRENT_TIMESTAMP`)

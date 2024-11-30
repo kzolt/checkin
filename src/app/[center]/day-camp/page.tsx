@@ -16,7 +16,7 @@ import { Button } from '~/components/ui/button'
 import { columns } from '~/components/columns'
 import { get_signed_in_ninjas } from '~/server/queries'
 
-export default function SignInSheetPage({ params }: { params: { center: string } }) {
+export default function DayCampSheet({ params }: { params: { center: string } }) {
     return (
         <main className="grid grid-cols-1 pt-20">
             <div className="container mx-auto flex max-w-6xl flex-col gap-5">
@@ -38,7 +38,7 @@ export default function SignInSheetPage({ params }: { params: { center: string }
                             center={
                                 params.center as 'northridge' | 'silverlake' | 'altadena'
                             }
-                            type="camp"
+                            type="day_camp"
                         />
                     </DialogContent>
                 </Dialog>
@@ -56,7 +56,7 @@ export default function SignInSheetPage({ params }: { params: { center: string }
 async function GetSignedInNinjas(props: {
     center: 'northridge' | 'silverlake' | 'altadena'
 }) {
-    const ninjas = await get_signed_in_ninjas(props.center, 'camp')
+    const ninjas = await get_signed_in_ninjas(props.center, 'day_camp')
 
     return <DataTable columns={columns} data={ninjas} />
 }
