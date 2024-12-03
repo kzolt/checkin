@@ -19,7 +19,7 @@ export const get_signed_in_ninjas = unstable_cache(
 
         const formattedNinjas = ninjas.map((ninja) => ({
             id: ninja.id,
-            ninja_name: ninja.ninja_name,
+            ninja_name: 'Vishal',
             time_in: ninja.time_in.toLocaleTimeString(['en-US'], {
                 hour: '2-digit',
                 minute: '2-digit',
